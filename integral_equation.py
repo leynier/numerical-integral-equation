@@ -1,3 +1,4 @@
+from numpy.linalg import cond
 from scipy import zeros
 from scipy.interpolate import CubicSpline
 from scipy.linalg import solve
@@ -15,4 +16,4 @@ def integral_equation(K, f, a, b, n = 5, use_python_libs = False):
     y = solve(matrix[:, 0: -1], matrix[:, -1]) if use_python_libs else gauss(matrix)
     assert len(x) == len(y), f'len(x) = {len(x)}, len(y) = {len(y)}'
     result = CubicSpline(x, y)
-    return result
+    return result, cond(matrix)

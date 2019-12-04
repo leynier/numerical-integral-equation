@@ -1,4 +1,4 @@
-from matplotlib.pyplot import plot, show
+from matplotlib.pyplot import plot, show, title
 from scipy import array, linspace, ndarray
 from scipy.interpolate import CubicSpline
 from sympy import sympify, SympifyError
@@ -62,10 +62,11 @@ if __name__ == "__main__":
             print_error('Error: The number of option should be 1 or 2.')
         f = get_tabular_form() if option == 1 else get_analytical_form()
         a, b = get_limits()
-        solve = integral_equation(K, f, a, b, use_python_libs=use_python_libs)
+        solve, cond = integral_equation(K, f, a, b, use_python_libs=use_python_libs)
         x = linspace(a, b)
         y = solve(x)
         plot(x, y)
+        title(f'Matrix condition: {cond}')
         show()
     except ValueError:
         print_error('Error: The number of option should be a integer.')
