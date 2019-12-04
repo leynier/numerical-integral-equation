@@ -4,19 +4,19 @@ School project about Numerical Integral Equation of the Computer Science degree 
 
 ## Getting started
 
-Install dependencies:
+### Install dependencies
 
 ```[bash]
 pip install -r requirements.txt
 ```
 
-For run samples:
+### For run samples
 
 ```[bash]
 python main.py samples
 ```
 
-For run program:
+### For run program
 
 ```[bash]
 python main.py
