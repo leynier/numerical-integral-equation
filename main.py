@@ -48,32 +48,36 @@ def get_analytical_form(dim2 = False):
     return lambda x: function.evalf(subs={'x': x})
 
 
+def sample1():
+    print('Sample 1:')
+    K = lambda x, y: sympify('1 + x * y').evalf(subs={'x': x, 'y': y})
+    f = lambda x: sympify('1').evalf(subs={'x': x})
+    a = -1
+    b = 1
+    print(f'K(x, y) = {K}')
+    print(f'f(x) = {f}')
+    print(f'Interval = [{a}, {b}]')
+    solve1, cond1 = integral_equation(K, f, a, b, use_python_libs=True)
+    solve2, cond2 = integral_equation(K, f, a, b, use_python_libs=False)
+    x = linspace(a, b)
+    y1 = solve1(x)
+    y2 = solve2(x)
+    figure('Sample 1')
+    subplot(1, 2, 1)
+    plot(x, y1)
+    title(f'Sample 1: Use Python Libraries')
+    xlabel(f'Matrix condition: {cond1}')
+    subplot(1, 2, 2)
+    plot(x, y2)
+    title(f'Sample 1: NO use Python Libraries')
+    xlabel(f'Matrix condition: {cond2}')
+    show()
+
+
 if __name__ == "__main__":
     try:
         if len(argv) > 1 and argv[1] == 'samples':
-            print('Sample 1:')
-            K1 = lambda x, y: sympify('1 + x * y').evalf(subs={'x': x, 'y': y})
-            f1 = lambda x: sympify('1').evalf(subs={'x': x})
-            a1 = -1
-            b1 = 1
-            print(f'K(x, y) = {K1}')
-            print(f'f(x) = {f1}')
-            print(f'Interval = [{a1}, {b1}]')
-            solve1_1, cond1_1 = integral_equation(K1, f1, a1, b1, use_python_libs=True)
-            solve1_2, cond1_2 = integral_equation(K1, f1, a1, b1, use_python_libs=False)
-            x1 = linspace(a1, b1)
-            y1_1 = solve1_1(x1)
-            y1_2 = solve1_2(x1)
-            figure('Sample 1')
-            subplot(1, 2, 1)
-            plot(x1, y1_1)
-            title(f'Sample 1: Use Python Libraries')
-            xlabel(f'Matrix condition: {cond1_1}')
-            subplot(1, 2, 2)
-            plot(x1, y1_2)
-            title(f'Sample 1: NO use Python Libraries')
-            xlabel(f'Matrix condition: {cond1_2}')
-            show()
+            sample1()
             exit()
         option = int(input('Insert 1 if use Python libraries or 2 if no: '))
         if option != 1 and option != 2:
