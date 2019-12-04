@@ -49,6 +49,10 @@ def get_analytical_form(dim2 = False):
 
 if __name__ == "__main__":
     try:
+        option = int(input('Insert 1 if use Python libraries or 2 if no: '))
+        if option != 1 and option != 2:
+            print_error('Error: The number of option should be 1 or 2.')
+        use_python_libs = option == 1
         option = int(input('Insert 1 if the function K is in the form of a table or 2 if it is in analytical form: '))
         if option != 1 and option != 2:
             print_error('Error: The number of option should be 1 or 2.')
@@ -58,7 +62,7 @@ if __name__ == "__main__":
             print_error('Error: The number of option should be 1 or 2.')
         f = get_tabular_form() if option == 1 else get_analytical_form()
         a, b = get_limits()
-        solve = integral_equation(K, f, a, b)
+        solve = integral_equation(K, f, a, b, use_python_libs=use_python_libs)
         x = linspace(a, b)
         y = solve(x)
         plot(x, y)
